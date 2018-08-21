@@ -15,7 +15,7 @@ const paymentMethod = document.querySelector('#payment');
 const creditCardDiv = document.querySelector('#credit-card');
 const payPalText = creditCardDiv.nextElementSibling;
 const bitcoinText = payPalText.nextElementSibling;
-
+const registerButton = document.querySelector('button');
 // Checkbox variables 
 let mainConf = document.getElementsByTagName('input')[name="all"];
 let jsFrameworks = document.getElementsByTagName('input')[name="js-frameworks"]; 
@@ -91,9 +91,26 @@ designMenu.addEventListener('change', () => {
 
 // Checks for conflicts with registered activities
 registerActivities.addEventListener('change', () => {
-    
+
+    let cost = 0;
+    let totalCostDiv = document.createElement('div');
+    totalCostDiv.setAttribute('id', 'totalcost');
+    registerActivities.appendChild(totalCostDiv);
+
+    // Cost for activities 
+        if (mainConf.checked === true) {
+            cost += 200;
+        }
+        if (buildTools.checked === true) {
+            cost += 100;
+        }
+        if (npm.checked === true) {
+            cost += 100;
+        }
+
     // Check for timing conflicts JS Frameworks & Express
         if (jsFrameworks.checked === true) {
+            cost += 100;
             expressWorkshop.setAttribute('disabled', true);
             
         } else {
@@ -101,6 +118,7 @@ registerActivities.addEventListener('change', () => {
         }
         
         if (expressWorkshop.checked === true) {
+            cost += 100;
             jsFrameworks.setAttribute('disabled', true);
             
         } else {
@@ -109,6 +127,7 @@ registerActivities.addEventListener('change', () => {
     
     // Check for timing conflicts with JS Lib & Node.js
         if (jsLibs.checked === true) {
+            cost += 100;
             nodejs.setAttribute('disabled', true);
             
         } else {
@@ -116,17 +135,14 @@ registerActivities.addEventListener('change', () => {
         }
         
         if (nodejs.checked === true) {
+            cost += 100;
             jsLibs.setAttribute('disabled', true);
             
         } else {
             jsLibs.removeAttribute('disabled', true);
         }
-    
         
-        // let cost = 0;
-        // let displayCostDiv = document.createElement('div');
-        // registerActivities.appendChild(displayCostDiv);
-
+        document.getElementById('totalcost').innerHTML = `Your total is: $${cost}`;
 });
 
 
@@ -159,5 +175,32 @@ paymentMethod.addEventListener('change', () => {
     
 });
 
+// Form validation 
+// Validate name 
+function nameErrorMsg() {
+    let errorDiv = document.createElement('div');
+    let errorP = document.createElement('p');
+    errorP.innerHTML = `Please enter your name`;
+    errorP.style.color = 'crimson';
+    errorDiv.appendChild(errorP);
+    nameInput.parentNode.insertBefore(errorDiv, nameInput);
+}
 
+const validateName = () => {
+    if (nameInput.value === '') {
+        nameErrorMsg();
+        return true;
+    } else {
+        
+        return false;
+    };
+};
+
+registerButton.addEventListener('click', (e) => {
+   if ( validateName() === true ) {
+       e.preventDefault();
+   }
+
+
+});
 
