@@ -5,6 +5,7 @@
 
 // Variables 
 const nameInput = document.querySelector('#name');
+const email = document.querySelector('#mail');
 const titleMenu = document.querySelector('#title');
 const hiddenRole = document.querySelector('#other');
 const designMenu = document.querySelector('#design');
@@ -177,27 +178,79 @@ paymentMethod.addEventListener('change', () => {
 
 // Form validation 
 // Validate name 
-function nameErrorMsg() {
+const nameErrorMsg = () => {
     let errorDiv = document.createElement('div');
     let errorP = document.createElement('p');
-    errorP.innerHTML = `Please enter your name`;
+    errorP.setAttribute('id', 'name-error')
     errorP.style.color = 'crimson';
     errorDiv.appendChild(errorP);
     nameInput.parentNode.insertBefore(errorDiv, nameInput);
-}
+    document.getElementById('name-error').innerHTML = `Please enter your name`;
+};
 
 const validateName = () => {
     if (nameInput.value === '') {
         nameErrorMsg();
         return true;
     } else {
-        
         return false;
     };
 };
 
+// Validate E-mail
+const emailErrorMsg = () => {
+    let errorDiv = document.createElement('div');
+    let errorP = document.createElement('p');
+    errorP.setAttribute('id', 'email-error')
+    errorP.style.color = 'crimson';
+    errorDiv.appendChild(errorP);
+    nameInput.parentNode.insertBefore(errorDiv, email);
+    document.getElementById('email-error').innerHTML = `Please enter a valid email address`;
+};
+
+const validateEmail = () => {
+    // Still needs validation of @ and .
+    if (email.value === '') {
+        emailErrorMsg();
+        return true;
+    } else {
+        return false;
+    };
+}; 
+
+// Validate at least 1 activity has been checked
+const actErrorMsg = () => {
+    let errorDiv = document.createElement('div');
+    let errorP = document.createElement('p');
+    errorP.setAttribute('id', 'act-error');
+    errorP.style.color = 'crimson';
+    errorDiv.appendChild(errorP);
+    registerActivities.insertBefore(errorDiv, registerActivities.children[0]);
+    document.getElementById('act-error').innerHTML = `Please select at least one activity`;
+};
+
+const validateActivities = () => {
+    let activities = document.querySelectorAll('input[type=checkbox]');
+    for (let i = 0; i < activities.length; i++) {
+        if (activities[i].checked === false ) {
+          actErrorMsg();
+          return false
+        } else {
+            return true;
+        }
+    };
+};
+
+
+
 registerButton.addEventListener('click', (e) => {
    if ( validateName() === true ) {
+       e.preventDefault();
+   } 
+   if (validateEmail() === true ) {
+       e.preventDefault();
+   }
+   if (validateActivities() === false ) {
        e.preventDefault();
    }
 
