@@ -219,27 +219,30 @@ const validateEmail = () => {
 }; 
 
 // Validate at least 1 activity has been checked
-const actErrorMsg = () => {
-    let errorDiv = document.createElement('div');
-    let errorP = document.createElement('p');
-    errorP.setAttribute('id', 'act-error');
-    errorP.style.color = 'crimson';
-    errorDiv.appendChild(errorP);
-    registerActivities.insertBefore(errorDiv, registerActivities.children[0]);
-    document.getElementById('act-error').innerHTML = `Please select at least one activity`;
-};
-
-const validateActivities = () => {
-    let activities = document.querySelectorAll('input[type=checkbox]');
-    for (let i = 0; i < activities.length; i++) {
-        if (activities[i].checked === false ) {
-          actErrorMsg();
-          return false
-        } else {
-            return true;
-        }
+const checkActs = () => {
+    // Creates error message to append
+    let errorMsg = document.createElement('div');
+    let errorText = document.createElement('p');
+    errorText.setAttribute('id', 'error');
+    errorText.style.color = 'crimson';
+    errorMsg.appendChild(errorText);
+    registerActivities.insertBefore(errorMsg, registerActivities.firstElementChild);
+    // Sets default value to false in order to check if error needs to be appended
+    let isChecked = false;
+    let checkboxes = registerActivities.getElementsByTagName('input');
+    for (let i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i].checked  == true ) {
+            isChecked = true;
+            errorMsg.style.display = 'none';
+            return;
+        } else if (checkboxes[i].checked == false ) {
+            isChecked = false;
+            document.getElementById('error').innerHTML = `Please select at least one activity`;
+        };
     };
 };
+
+
 
 
 
@@ -250,7 +253,7 @@ registerButton.addEventListener('click', (e) => {
    if (validateEmail() === true ) {
        e.preventDefault();
    }
-   if (validateActivities() === false ) {
+   if (checkActs() === false ) {
        e.preventDefault();
    }
 
