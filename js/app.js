@@ -235,12 +235,14 @@ const checkActs = () => {
     for (let i = 0; i < checkboxes.length; i++) {
         if (checkboxes[i].checked  == true) {
             isChecked = true;
+            document.getElementById('error').innerHTML = ``;
+            return;
         }; 
-        if (checkboxes[i].checked == false) {
-            isChecked = false;
+        
+    };
+        if (isChecked == false) {
             document.getElementById('error').innerHTML = `Please select at least one activity`;
         };
-    };
 };
 
 
