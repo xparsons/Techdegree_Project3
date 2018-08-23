@@ -12,8 +12,11 @@ const designMenu = document.querySelector('#design');
 const colorOptions = document.querySelector('#color');
 const colorOptionsDiv = document.querySelector('#colors-js-puns');
 const registerActivities = document.querySelector('.activities');
-const paymentMethod = document.querySelector('#payment');
 const creditCardDiv = document.querySelector('#credit-card');
+const paymentMethod = document.querySelector('#payment');
+const ccInput = document.querySelector('#cc-num');
+const zipInput = document.querySelector('#zip');
+const cvvInput = document.querySelector('#cvv');
 const payPalText = creditCardDiv.nextElementSibling;
 const bitcoinText = payPalText.nextElementSibling;
 const registerButton = document.querySelector('button');
@@ -222,40 +225,74 @@ const validateEmail = () => {
 
 // Validate at least 1 activity has been checked
 const checkActs = () => {
-    // Creates error message to append
-    let errorMsg = document.createElement('div');
-    let errorText = document.createElement('p');
-    errorText.setAttribute('id', 'error');
-    errorText.style.color = 'crimson';
-    errorMsg.appendChild(errorText);
-    registerActivities.insertBefore(errorMsg, registerActivities.firstElementChild);
     // Sets default value to false in order to check if error needs to be appended
     let isChecked = false;
     let checkboxes = registerActivities.getElementsByTagName('input');
     for (let i = 0; i < checkboxes.length; i++) {
         if (checkboxes[i].checked  == true) {
             isChecked = true;
-            document.getElementById('error').innerHTML = ``;
+            document.getElementById('errordiv').style.display = 'none';
             return;
         }; 
         
     };
         if (isChecked == false) {
+            // Creates error message to append
+            let errorMsg = document.createElement('div');
+            errorMsg.setAttribute('id', 'errordiv');
+            let errorText = document.createElement('p');
+            errorText.setAttribute('id', 'error');
+            errorText.style.color = 'crimson';
+            errorMsg.appendChild(errorText);
+            registerActivities.insertBefore(errorMsg, registerActivities.firstElementChild);
             document.getElementById('error').innerHTML = `Please select at least one activity`;
         };
 };
 
 
+
+// Card number error messsage 
+const cardNumberMsg = () => {
+    let errorDiv = document.createElement('div');
+    let errorP = document.createElement('p');
+    errorP.setAttribute('id', 'number-error')
+    errorP.style.color = 'crimson';
+    errorDiv.appendChild(errorP);
+    ccInput.parentNode.insertBefore(errorDiv, ccInput);
+    document.getElementById('number-error').innerHTML = `Please enter a valid card number`;
+};
+
+// Validate Credit Card, CVV, Zip
+const validateCCForm = () => {
+    // Check if the length of the card number is correct
+    let cardNumber = ccInput.value.length;
+    if (paymentOption == 'credit card') {
+        if (cardNumber >= 13 && cardNumber <= 16)
+            return true;
+    } else {
+        cardNumberMsg();
+        return false;
+    }
+}
+
+
+
 registerButton.addEventListener('click', (e) => {
    if ( validateName() === true ) {
        e.preventDefault();
-   } 
+   }; 
+
    if (validateEmail() === true ) {
        e.preventDefault();
-   }
+   };
+
    if (checkActs() === false ) {
        e.preventDefault();
-   }
-
+   };
+       
+    if (validateCCForm === false) {
+        e.preventDefault();
+    };
+   
 
 });
