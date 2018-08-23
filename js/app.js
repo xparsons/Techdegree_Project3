@@ -14,6 +14,7 @@ const colorOptionsDiv = document.querySelector('#colors-js-puns');
 const registerActivities = document.querySelector('.activities');
 const creditCardDiv = document.querySelector('#credit-card');
 const paymentMethod = document.querySelector('#payment');
+let paymentOption = paymentMethod.options[paymentMethod.selectedIndex].value;
 const ccInput = document.querySelector('#cc-num');
 const zipInput = document.querySelector('#zip');
 const cvvInput = document.querySelector('#cvv');
@@ -249,8 +250,6 @@ const checkActs = () => {
         };
 };
 
-
-
 // Card number error messsage 
 const cardNumberMsg = () => {
     let errorDiv = document.createElement('div');
@@ -258,7 +257,7 @@ const cardNumberMsg = () => {
     errorP.setAttribute('id', 'number-error')
     errorP.style.color = 'crimson';
     errorDiv.appendChild(errorP);
-    ccInput.parentNode.insertBefore(errorDiv, ccInput);
+    creditCardDiv.insertBefore(errorDiv, creditCardDiv.firstElementChild);
     document.getElementById('number-error').innerHTML = `Please enter a valid card number`;
 };
 
