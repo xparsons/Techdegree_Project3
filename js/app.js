@@ -218,6 +218,8 @@ const validateEmail = () => {
     };
 }; 
 
+
+
 // Validate at least 1 activity has been checked
 const checkActs = () => {
     // Creates error message to append
@@ -231,19 +233,15 @@ const checkActs = () => {
     let isChecked = false;
     let checkboxes = registerActivities.getElementsByTagName('input');
     for (let i = 0; i < checkboxes.length; i++) {
-        if (checkboxes[i].checked  == true ) {
+        if (checkboxes[i].checked  == true) {
             isChecked = true;
-            errorMsg.style.display = 'none';
-            return;
-        } else if (checkboxes[i].checked == false ) {
+        }; 
+        if (checkboxes[i].checked == false) {
             isChecked = false;
             document.getElementById('error').innerHTML = `Please select at least one activity`;
         };
     };
 };
-
-
-
 
 
 registerButton.addEventListener('click', (e) => {
@@ -259,4 +257,3 @@ registerButton.addEventListener('click', (e) => {
 
 
 });
-
