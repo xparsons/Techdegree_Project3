@@ -161,14 +161,10 @@ registerActivities.addEventListener('change', () => {
 paymentMethod.addEventListener('change', () => {
     let paymentOption = paymentMethod.options[paymentMethod.selectedIndex].value;
     
-    if (paymentOption === 'select_method') {
-        creditCardDiv.style.display = 'none';
-        payPalText.style.display = 'none';
-        bitcoinText.style.display = 'none';
-    }
-    
     if (paymentOption === 'credit card') {
         creditCardDiv.style.display = 'block';
+        bitcoinText.style.display = 'none';
+        payPalText.style.display = 'none'; 
     }
     
     if (paymentOption === 'paypal') {
@@ -195,7 +191,7 @@ const nameErrorMsg = () => {
     errorP.style.color = 'crimson';
     errorDiv.appendChild(errorP);
     nameInput.parentNode.insertBefore(errorDiv, nameInput);
-    document.getElementById('name-error').innerHTML = `Please enter your name`;
+    document.getElementById('name-error').innerHTML = `Name must be entered`;
 };
 
  // CVV Message
@@ -242,7 +238,7 @@ const emailErrorMsg = () => {
     errorP.style.color = 'crimson';
     errorDiv.appendChild(errorP);
     nameInput.parentNode.insertBefore(errorDiv, email);
-    document.getElementById('email-error').innerHTML = `Please enter a valid email address`;
+    document.getElementById('email-error').innerHTML = `Enter a valid email address`;
 };
 
 // Validate Name Input
@@ -257,16 +253,19 @@ const validateName = () => {
 
 // Validate E-mail input
 const validateEmail = () => {
+    let atpos = email.value.indexOf("@");
+    let dotpos = email.value.indexOf(".");
+
     if (email.value === '') {
         emailErrorMsg();
         return true;
-    } if (atpos < 1 || dotpos < atpost + 2 || dospos + 2 == email.value.length) {
+    } else if (atpos < 1 || dotpos < atpos+2 || dotpos+2 >= email.value.length) {
         emailErrorMsg();
+        return true;
     } else {
         return false;
     };
 }; 
-
 
 
 // Validate at least 1 activity has been checked

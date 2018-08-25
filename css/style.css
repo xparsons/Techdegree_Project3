@@ -9,13 +9,13 @@
 body,
 input,
 button {
- font-family: 'Roboto', sans-serif;
+ font-family: 'Open Sans', sans-serif;
 }
 
 body {
   font: 1em/1.5;
-  color: #184f68;
-	background: #accbd9;
+  color: #111;
+  background: #eff1f5;
 }
 
 header {
@@ -37,8 +37,11 @@ a {
 ==================================== */
 
 form {
-	padding: .875em 1.875em 1.875em;
-	background: #85b5ca;
+	padding: 1.875em 2.875em 2.875em;
+	background: #fff;
+	box-shadow: 0 0 10px rgb(199, 199, 199); 
+	border-top: 6px solid  #00af49;
+	margin-bottom: 40px;
 }
 
 fieldset,
@@ -60,8 +63,8 @@ button {
 legend {
 	font-weight: 500;
 	padding-top: .5em;
-	border-top: 2px solid #679cb3;
 	margin-bottom: 1.125em;
+	font-size: 1.6em;
 }
 
 input[type="text"],
@@ -85,14 +88,16 @@ input {
 	font-size: 1em;
 	font-weight: 500;
 	padding: .8em;
-	background: #c1deeb;
-	border: 2px solid #c1deeb;
+	border-top: transparent;
+	border-left: transparent;
+	border-right: transparent;
+	border-bottom: 2px solid rgb(214, 214, 214);
 	outline: none;
 }
 
 input:focus {
 	background: #fff;
-	border-color: #5e97b0;
+	border-color: #9b9b9b;
 	transition: border-color .4s, background-color .4s;
 }
 
@@ -101,16 +106,23 @@ input[type="radio"] {
 	display: inline-block;
 }
 
+input::placeholder {
+	color: #d6d6d6;
+}
+
 button {
 	color: #fff;
+	width: 30%;
 	padding: .55em 1.25em;
-	background: #22627e;
-	margin: 1.25em 0 .5em;
+	background: #00c853;
 	cursor: pointer;
+	margin-top: 10px;
 }
 
 button:hover {
-	background: #184c62;
+	background: #00af49;
+	transition: .4s;
+
 }
 
 /* ================================= 
